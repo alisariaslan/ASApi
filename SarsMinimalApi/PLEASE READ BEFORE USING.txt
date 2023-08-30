@@ -1,0 +1,34 @@
+appsettings.Development.json and appsettings.json
+
+files are deleted. Because they are includes my private information. Use your own setting files.
+
+Example of this files are writed below.
+You need to fill all the variables i mentioned with "?"
+
+EXAMPLE:
+
+{
+	"Jwt": {
+		"Issuer": "https://sarsyazilim.com.tr",
+		"Audience": "https://sarsyazilim.com.tr",
+		"Key": "?"
+	},
+	"ConnectionStrings": {
+		"DefaultConnection": "?"
+	},
+	"Logging": {
+		"LogLevel": {
+			"Default": "Information",
+			"Microsoft.AspNetCore": "Warning"
+		}
+	},
+	"AllowedHosts": "*",
+	"MailSettings": {
+		"Mail": "?",
+		"DisplayName": "?",
+		"Password": "?",
+		"Host": "smtp.gmail.com",
+		"Port": 587
+	}
+}
+

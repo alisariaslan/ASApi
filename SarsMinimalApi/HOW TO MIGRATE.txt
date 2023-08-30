@@ -1,0 +1,7 @@
+DOTNET EF TOOLS
+
+Developer Powershell command 1:
+dotnet ef migrations add FistMigration
+
+Developer Powershell command 2:
+dotnet ef database update
