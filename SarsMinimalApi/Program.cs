@@ -155,6 +155,7 @@ app.MapPost("/user/update/email", async (HttpRequest request, MyDbContext contex
 	if (user is null)
 		return Results.Json(new ApiModel() { Error = "Your token is invalid. Please login the your account again." });
 	user.Email = uptadeObjectModel.Object.ToString();
+	user.IsEmailVerified = false;
 	context.Users.Update(user);
 	await context.SaveChangesAsync();
 	return Results.Ok(new ApiModel());
