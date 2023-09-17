@@ -5,4 +5,4 @@ Mini REST api for user management.
 + Verify via Mail,
 + Multi-Language,
 + JWT Token,
-+ Windows Firewall Protection.
++ Spam Protection.
