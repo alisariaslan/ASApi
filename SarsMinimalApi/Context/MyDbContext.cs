@@ -10,8 +10,10 @@ public class MyDbContext : DbContext
 	public DbSet<UserModel> Users => Set<UserModel>();
 	public DbSet<TokenModel> Tokens => Set<TokenModel>();
 	public DbSet<VerificationModel> Verifications => Set<VerificationModel>();
+    public DbSet<IpModel> Requests => Set<IpModel>();
+    public DbSet<LogModel> Logs => Set<LogModel>();
 
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<TokenModel>()
 			   .HasOne<UserModel>()

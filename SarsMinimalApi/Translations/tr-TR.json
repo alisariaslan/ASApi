@@ -1,0 +1,43 @@
+﻿{
+	"0": {
+		"0": "SARS API sizi selamlıyor."
+	},
+	"1": {
+		"0": "Böyle bir kullanıcı bulunamadı.",
+		"1": "Şifreniz yanlış.",
+		"2": "Başarıyla giriş yaptınız.",
+		"3": "Başarıyla kayıt oluşturdunuz."
+	},
+	"2": {
+		"0": "Bu işlemi gerçekleştirmek için yetkiniz bulunmamaktadır!"
+	},
+	"3": {
+		"0": "Mail başarıyla gönderildi: "
+	},
+	"4": {
+		"0": "İlgili uygulamaya ait tüm tokenleri sildiniz: ",
+		"1": "Tüm tokenleri veritabanından sildiniz.",
+		"2": "Kullanıcı girişiniz geçersiz. Lütfen tekrar giriş yapınız."
+	},
+	"5": {
+		"0": "Bu kullanıcı adı kullanılmaktadır. Lütfen başka bir kullanıcı adı seçiniz.",
+		"1": "Kullanıcı adınız 20 karakterden fazla, 3 karakterden kısa olamaz.",
+		"2": "Şifreniz 30 karakterden fazla, 5 karakterden kısa olamaz.",
+		"3": "Hesabınız henüz doğrulanmamış. Bu nedenle şifrenizi değiştiremezsiniz. Lütfen hesabınızı doğrulayın.",
+		"4": "Şifreniz başarıyla güncellendi."
+	},
+	"6": {
+		"0": "Email bilgisi kullanıcınızda bulunmamaktadır. Lütfen email bilginizi doldurunuz.",
+		"1": "SARS Hesap Aktivasyonu",
+		"2": "Aktivasyon kodunuz: ",
+		"3": "Aktivasyon kodunu ilgili mail adresine gönderdik: ",
+		"4": "Aktivasyon kodunuz geçersiz. Lütfen yenisini isteyiniz.",
+		"5": "Tebrikler! Hesabınız doğrulanmıştır."
+	},
+	"7": {
+		"0": "Çok fazla istek gönderiyorsunuz. Lütfen yavaşlayın ve biraz bekleyin.",
+		"1": "Herhangi bir sorun gözükmüyor.",
+		"2": "Engellendiniz.",
+		"3": "Ip adresiniz bilinmiyor."
+	}
+}

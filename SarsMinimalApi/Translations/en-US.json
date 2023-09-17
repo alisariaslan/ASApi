@@ -1,0 +1,43 @@
+﻿{
+	"0": {
+		"0": "Welcome to SARS API."
+	},
+	"1": {
+		"0": "This user is not exists.",
+		"1": "Your password is incorrect.",
+		"2": "You are successfully signed in.",
+		"3": "You has been registered successfully."
+	},
+	"2": {
+		"0": "You have no permission to do this action!"
+	},
+	"3": {
+		"0": "Mail successfully sent to "
+	},
+	"4": {
+		"0": "You cleared every token in the ",
+		"1": "You cleared all the tokens in the database.",
+		"2": "Your token is invalid. Please login the your account again."
+	},
+	"5": {
+		"0": "This user already exits! Please prefer another username.",
+		"1": "Your username length cannot be greater than 20 and lesser than 3.",
+		"2": "Your password length cannot be greater than 30 and lesser than 5.",
+		"3": "Your account is unverified. You cannot change your password. Please verify your account.",
+		"4": "Your password is successfully updated."
+	},
+	"6": {
+		"0": "Your email information is empty. Please fill your email information.",
+		"1": "SARS Account Activation",
+		"2": "Your verification code is: ",
+		"3": "We sent a verification code to ",
+		"4": "Your verification code is invalid. Please request new one.",
+		"5": "Congratulations! Your account is verified."
+	},
+	"7": {
+		"0": "You are sending too much request. Please slow down and wait a little.",
+		"1": "You are okey.",
+		"2": "You are blocked.",
+		"3": "Your ip unknown."
+	}
+}

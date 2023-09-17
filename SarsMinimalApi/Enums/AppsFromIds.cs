@@ -2,8 +2,8 @@
 {
 	public enum AppsFromIds
 	{
-		NOAPP,
-		SARSWEBSITE,
-		POSTWOMEN
+		GENERAL,
+		SARSweb,
+		PostWomen
 	}
 }

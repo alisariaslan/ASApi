@@ -2,9 +2,9 @@
 {
 	public enum PermissionLevels
 	{
-		NOPERM,
 		USER,
-		USERADMIN,
-		ADMIN
+		SuperUSER,
+		ADMIN,
+		SuperADMIN
 	}
 }
