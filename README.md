@@ -1,5 +1,5 @@
-# SarsRestApi
-Rest api for user management.
+# SarsMinimalApi
+Mini REST api for user management.
 + Login.
 + Registration.
 + JWT Token.
