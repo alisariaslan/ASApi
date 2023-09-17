@@ -1,4 +1,6 @@
 # SarsRestApi
 Rest api for user management.
++ Login.
 + Registration.
-+ Getting jwt tokens for logins.
++ JWT Token.
++ Windows Firewall Protection.
