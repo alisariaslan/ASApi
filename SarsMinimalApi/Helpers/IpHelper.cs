@@ -31,7 +31,6 @@ public class IpHelper
         process.WaitForExit();
         await DbHelper.SaveLog(dbContext, "IsFirewallRuleExists", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{string.Empty}");
         return output.Contains("Rule Name:");
-
     }
 
     public static async Task<bool> CreateFirewallRule(string ip, MyDbContext dbContext)
