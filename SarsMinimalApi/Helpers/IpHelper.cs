@@ -74,12 +74,12 @@ public class IpHelper
         #endregion
 
         #region Clear expired ips
-        var expiredIps = await dbContext.Requests.Where(e => e.CreationDate <= DateTime.UtcNow.AddMinutes(-1)).ToListAsync();
+        var expiredIps = await dbContext.Requests.Where(e => e.CreationDate <= DateTime.Now.AddMinutes(-1)).ToListAsync();
         dbContext.Requests.RemoveRange(expiredIps); // Seçilen tokenleri kaldır
         await dbContext.SaveChangesAsync();
         #endregion
 
-        var requestCount = await dbContext.Requests.Where(u => u.Ip == ip && u.Endpoint == endpoint && u.CreationDate >= DateTime.UtcNow.AddSeconds(-maxSeconds)).CountAsync();
+        var requestCount = await dbContext.Requests.Where(u => u.Ip == ip && u.Endpoint == endpoint && u.CreationDate >= DateTime.Now.AddSeconds(-maxSeconds)).CountAsync();
         if (requestCount > maxRequestCount * 2)
         {
             #region EXPERIMENTAL

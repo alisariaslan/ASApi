@@ -8,7 +8,7 @@ namespace SarsMinimalApi.Helpers
 {
 	public static class MailHelper
 	{
-		public static async Task<bool> SendMailAsync(WebApplicationBuilder builder, MailModel mailModel)
+		public static Task<bool> SendMailAsync(WebApplicationBuilder builder, MailModel mailModel)
 		{
 
 			var from = builder.Configuration["MailSettings:Mail"];
@@ -26,7 +26,7 @@ namespace SarsMinimalApi.Helpers
 			smtp.Authenticate(mail, mailpass);
 			smtp.Send(email);
 			smtp.Disconnect(true);
-			return true;
+			return Task.FromResult(true);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SarsMinimalApi.Context;
@@ -57,7 +58,7 @@ app.MapGet("/api/apicheck", (HttpRequest request) => new ApiModel()
 
 app.MapGet("/api/spamcheck", async (HttpRequest request, MyDbContext context) =>
 {
-    var isSpam = await IpHelper.SpamCheckAsync(request, context, "[GET]/api/spamcheck", 0,0);
+    var isSpam = await IpHelper.SpamCheckAsync(request, context, "[GET]/api/spamcheck", 0, 0);
     if (isSpam == SpamLevel.IpError)
         return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 7, 3) });
     else if (isSpam == SpamLevel.Spam)
@@ -94,7 +95,7 @@ app.MapPost("/system/send", async (HttpRequest request, MyDbContext context, Dyn
     string error = process.StandardError.ReadToEnd();
     process.WaitForExit();
     await DbHelper.SaveLog(context, "app.MapPost(/system/send)", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{error}");
-    return Results.Ok(new ApiModel() { Message = $"output:{output}\nerror:{error}"});
+    return Results.Ok(new ApiModel() { Message = $"output:{output}\nerror:{error}" });
 }).RequireAuthorization();
 #endregion
 
@@ -204,7 +205,7 @@ app.MapPost("/auth/register", [AllowAnonymous] async (HttpRequest request, MyDbC
     #endregion
     #region Clear unverified users
     var expiredUsers = await context.Users
-    .Where(e => e.RegisterDate <= DateTime.UtcNow.AddDays(7) && (e.IsEmailVerified == false && e.IsPhoneVerified == false)) // Süresi dolmuş tokenleri seç
+    .Where(e => e.CreationDate <= DateTime.UtcNow.AddDays(7) && (e.IsEmailVerified == false && e.IsPhoneVerified == false)) // Süresi dolmuş tokenleri seç
     .ToListAsync(); // Asenkron olarak liste olarak al
     context.Users.RemoveRange(expiredUsers); // Seçilen tokenleri kaldır
     #endregion
@@ -281,7 +282,7 @@ app.MapPost("/user/update/password", async (HttpRequest request, MyDbContext con
     var user = await DbHelper.GetUserFromToken(request, context);
     if (user is null)
         return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 4, 2) });
-    if (user.IsEmailVerified is null || user.IsEmailVerified is false)
+    if (user.IsEmailVerified is false)
         return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 5, 3) });
     var newPassword = dynamicObjectModel.Object.ToString();
     if (newPassword == null || newPassword.Length > 30 || newPassword.Length < 5)
@@ -291,6 +292,109 @@ app.MapPost("/user/update/password", async (HttpRequest request, MyDbContext con
     await context.SaveChangesAsync();
     return Results.Ok(new ApiModel() { Message = LangHelper.ConvertToResponse(request, 5, 4) });
 }).RequireAuthorization();
+
+#region APP MANAGEMENT
+//GET APP
+app.MapGet("/app/get", async (HttpRequest request, MyDbContext context, [FromQuery] string AppKey) =>
+{
+    if ((await IpHelper.SpamCheckAsync(request, context, "[GET]/app/get", 10, 1)) != SpamLevel.Ok)
+        return Results.Ok(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 7, 0) });
+    if (string.IsNullOrEmpty(AppKey))
+        return Results.Ok(new ApiModel() { Data = context.Apps.ToList() });
+    else
+    {
+        var app = context.Apps.FirstOrDefault(f => f.Key.Equals(AppKey));
+        if (app is null)
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 5));
+        else
+            return Results.Ok(new ApiModel() { Data = app });
+    }
+});
+
+//ADD APP
+app.MapPost("/app/insert", async (HttpRequest request, MyDbContext context, AppModel appModel) =>
+{
+    if ((await IpHelper.SpamCheckAsync(request, context, "[POST]/app/insert", 10, 1)) != SpamLevel.Ok)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 7, 0) });
+    if (!AuthHelper.IsFullyAuthorized(request, builder))
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 2, 0) });
+    var user = await DbHelper.GetUserFromToken(request, context);
+    if (user is null)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 4, 2) });
+    if (user.IsEmailVerified is false)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 5, 3) });
+    try
+    {
+        if (string.IsNullOrEmpty(appModel.Key))
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 3));
+        if (context.Apps.FirstOrDefault(f => f.Key.Equals(appModel.Key)) is not null)
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 4));
+        await context.Apps.AddAsync(appModel);
+        await context.SaveChangesAsync();
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new ApiModel() { Error = ex.Message });
+    }
+    return Results.Ok(new ApiModel() { Message = LangHelper.ConvertToResponse(request, 8, 0) });
+}).RequireAuthorization();
+
+//UPDATE APP
+app.MapPost("/app/update", async (HttpRequest request, MyDbContext context, AppModel appModel) =>
+{
+    if ((await IpHelper.SpamCheckAsync(request, context, "[POST]/app/update", 10, 1)) != SpamLevel.Ok)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 7, 0) });
+    if (!AuthHelper.IsFullyAuthorized(request, builder))
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 2, 0) });
+    var user = await DbHelper.GetUserFromToken(request, context);
+    if (user is null)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 4, 2) });
+    if (user.IsEmailVerified is false)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 5, 3) });
+    try
+    {
+        if (string.IsNullOrEmpty(appModel.Key))
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 3));
+        if (context.Apps.AsNoTracking().FirstOrDefault(f => f.Key.Equals(appModel.Key)) is null || appModel.Id == 0)
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 5));
+        context.Apps.Update(appModel);
+        await context.SaveChangesAsync();
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new ApiModel() { Error = ex.Message });
+    }
+    return Results.Ok(new ApiModel() { Message = LangHelper.ConvertToResponse(request, 8, 1) });
+}).RequireAuthorization();
+
+//DEL APP
+app.MapDelete("/app/delete", async (HttpRequest request, MyDbContext context, [FromQuery] string AppKey) =>
+{
+    if ((await IpHelper.SpamCheckAsync(request, context, "[POST]/app/delete", 10, 1)) != SpamLevel.Ok)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 7, 0) });
+    if (!AuthHelper.IsFullyAuthorized(request, builder))
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 2, 0) });
+    var user = await DbHelper.GetUserFromToken(request, context);
+    if (user is null)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 4, 2) });
+    if (user.IsEmailVerified is false)
+        return Results.Json(new ApiModel() { Error = LangHelper.ConvertToResponse(request, 5, 3) });
+    try
+    {
+        var app = context.Apps.FirstOrDefault(f => f.Key.Equals(AppKey));
+        if (app is null)
+            throw new Exception(LangHelper.ConvertToResponse(request, 8, 5));
+        context.Apps.Remove(app);
+        await context.SaveChangesAsync();
+    }
+    catch (Exception ex)
+    {
+        return Results.Json(new ApiModel() { Error = ex.Message });
+    }
+    return Results.Ok(new ApiModel() { Message = LangHelper.ConvertToResponse(request, 8, 2) });
+}).RequireAuthorization();
+
+#endregion
 
 app.UseAuthentication();
 app.UseAuthorization();

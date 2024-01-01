@@ -12,6 +12,7 @@ public class MyDbContext : DbContext
 	public DbSet<VerificationModel> Verifications => Set<VerificationModel>();
     public DbSet<IpModel> Requests => Set<IpModel>();
     public DbSet<LogModel> Logs => Set<LogModel>();
+    public DbSet<AppModel> Apps => Set<AppModel>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{

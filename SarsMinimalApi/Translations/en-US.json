@@ -39,5 +39,13 @@
 		"1": "You are okey.",
 		"2": "You are blocked.",
 		"3": "Your ip unknown."
+	},
+	"8": {
+		"0": "New app inserted.",
+		"1": "App updated.",
+		"2": "App deleted.",
+		"3": "App name (Key) cannot be empty!",
+		"4": "App name (Key) already exits!",
+		"5": "App name (Key) is not exits!"
 	}
 }

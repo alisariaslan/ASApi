@@ -1,9 +1,10 @@
-﻿namespace SarsMinimalApi.Models
+﻿namespace SarsMinimalApi.Models;
+
+public class MailModel
 {
-	public class MailModel
-	{
-		public string To { get; set; }
-		public string Subject { get; set; }
-		public object Body { get; set; }
-	}
+    public string To { get; set; }
+
+    public string Subject { get; set; }
+
+    public object Body { get; set; }
 }

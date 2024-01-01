@@ -39,5 +39,13 @@
 		"1": "Herhangi bir sorun gözükmüyor.",
 		"2": "Engellendiniz.",
 		"3": "Ip adresiniz bilinmiyor."
+	},
+	"8": {
+		"0": "Yeni uygulama eklendi.",
+		"1": "Uygulama güncellendi.",
+		"2": "Uygulama silindi.",
+		"3": "Uygulama adı (Key) boş olamaz!",
+		"4": "Uygulama adı (Key) zaten mevcut!",
+		"5": "Uygulama adı (Key) mevcut değil!"
 	}
 }

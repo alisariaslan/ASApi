@@ -1,7 +1,6 @@
-﻿namespace SarsMinimalApi.Models
+﻿namespace SarsMinimalApi.Models;
+
+public class DynamicObjectModel 
 {
-	public class DynamicObjectModel
-	{
-		public required object Object { get; set; }
-	}
+    public object Object { get; set; }
 }
