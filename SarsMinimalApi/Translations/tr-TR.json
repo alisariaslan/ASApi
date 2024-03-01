@@ -1,6 +1,6 @@
 ﻿{
 	"0": {
-		"0": "SARS API sizi selamlıyor."
+		"0": "AS API sizi selamlıyor."
 	},
 	"1": {
 		"0": "Böyle bir kullanıcı bulunamadı.",
@@ -28,7 +28,7 @@
 	},
 	"6": {
 		"0": "Email bilgisi kullanıcınızda bulunmamaktadır. Lütfen email bilginizi doldurunuz.",
-		"1": "SARS Hesap Aktivasyonu",
+		"1": "AS Hesap Aktivasyonu",
 		"2": "Aktivasyon kodunuz: ",
 		"3": "Aktivasyon kodunu ilgili mail adresine gönderdik: ",
 		"4": "Aktivasyon kodunuz geçersiz. Lütfen yenisini isteyiniz.",
@@ -47,5 +47,8 @@
 		"3": "Uygulama adı (Key) boş olamaz!",
 		"4": "Uygulama adı (Key) zaten mevcut!",
 		"5": "Uygulama adı (Key) mevcut değil!"
+	},
+	"9": {
+		"0": "Sunucu içi hata oluştu. Hata raporlandı."
 	}
 }

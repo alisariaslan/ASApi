@@ -1,19 +1,25 @@
-﻿using Azure.Core;
+﻿using SarsMinimalApi.Context;
 
-namespace SarsMinimalApi.Helpers
+namespace SarsMinimalApi.Helpers;
+
+public static class AuthHelper
 {
-	public static class AuthHelper
+	public async static Task<bool> IsFullyAuthorized(MyDbContext myDbContext, string adminToken)
 	{
-		public static bool IsFullyAuthorized(HttpRequest request, WebApplicationBuilder builder)
+		try
 		{
-			request.Headers.TryGetValue("Authorization+", out var authorizationPlus);
-			string authPlusToken = authorizationPlus.FirstOrDefault();
-			if (authPlusToken is null)
+			if (Program.Builder.Configuration["FullAuthProtection"].Equals("Disabled"))
+				return true;
+			var realAdminToken = Program.Builder.Configuration["Jwt:AdminToken"];
+			if (realAdminToken.Equals(adminToken))
+				return true;
+			else
 				return false;
-			var myAuthPlusToken = builder.Configuration["Jwt:Key"];
-			if (myAuthPlusToken == null || !authPlusToken.Equals(myAuthPlusToken))
-				return false;
-			return true;
+		}
+		catch (Exception ex)
+		{
+			await DbHelper.SaveLog(myDbContext, "IsFullyAuthorized", ex.Message);
+			return false;
 		}
 	}
 }

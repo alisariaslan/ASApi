@@ -1,16 +1,18 @@
-﻿using MailKit.Security;
-using MimeKit.Text;
+﻿using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
+using MimeKit.Text;
+using SarsMinimalApi.Context;
 using SarsMinimalApi.Models;
-using MailKit.Net.Smtp;
 
-namespace SarsMinimalApi.Helpers
+namespace SarsMinimalApi.Helpers;
+
+public static class MailHelper
 {
-	public static class MailHelper
+	public static async Task<bool> SendMailAsync(MyDbContext myDbContext, WebApplicationBuilder builder, MailModel mailModel)
 	{
-		public static Task<bool> SendMailAsync(WebApplicationBuilder builder, MailModel mailModel)
+		try
 		{
-
 			var from = builder.Configuration["MailSettings:Mail"];
 			var email = new MimeMessage();
 			email.From.Add(MailboxAddress.Parse(from));
@@ -26,7 +28,12 @@ namespace SarsMinimalApi.Helpers
 			smtp.Authenticate(mail, mailpass);
 			smtp.Send(email);
 			smtp.Disconnect(true);
-			return Task.FromResult(true);
+			return true;
+		}
+		catch (Exception ex)
+		{
+			await DbHelper.SaveLog(myDbContext, "SendMailAsync", ex.Message);
+			return false;
 		}
 	}
 }

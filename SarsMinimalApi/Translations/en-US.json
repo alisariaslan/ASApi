@@ -1,6 +1,6 @@
 ﻿{
 	"0": {
-		"0": "Welcome to SARS API."
+		"0": "Welcome to AS API."
 	},
 	"1": {
 		"0": "This user is not exists.",
@@ -28,7 +28,7 @@
 	},
 	"6": {
 		"0": "Your email information is empty. Please fill your email information.",
-		"1": "SARS Account Activation",
+		"1": "AS Account Activation",
 		"2": "Your verification code is: ",
 		"3": "We sent a verification code to ",
 		"4": "Your verification code is invalid. Please request new one.",
@@ -47,5 +47,8 @@
 		"3": "App name (Key) cannot be empty!",
 		"4": "App name (Key) already exits!",
 		"5": "App name (Key) is not exits!"
+	},
+	"9": {
+		"0": "Internal server error occured. Logs writed."
 	}
 }

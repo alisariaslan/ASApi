@@ -14,7 +14,17 @@ public class MyDbContext : DbContext
     public DbSet<LogModel> Logs => Set<LogModel>();
     public DbSet<AppModel> Apps => Set<AppModel>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		// Add this part to disable logging for SQL commands
+		optionsBuilder.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddFilter((category, level) =>
+			category == DbLoggerCategory.Database.Command.Name
+			&& level == LogLevel.Information)));
+
+		base.OnConfiguring(optionsBuilder);
+	}
+
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<TokenModel>()
 			   .HasOne<UserModel>()
