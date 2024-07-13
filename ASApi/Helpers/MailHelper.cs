@@ -32,7 +32,7 @@ public static class MailHelper
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "SendMailAsync", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "SendMailAsync", ex.Message);
 			return false;
 		}
 	}

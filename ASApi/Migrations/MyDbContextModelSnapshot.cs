@@ -17,7 +17,7 @@ namespace SarsMinimalApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.10")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -30,11 +30,17 @@ namespace SarsMinimalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AndroidURI")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AndroidVersion")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("IOSURI")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IOSVersion")
                         .HasColumnType("int");
@@ -42,8 +48,14 @@ namespace SarsMinimalApi.Migrations
                     b.Property<string>("Key")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MacosURI")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("MacosVersion")
                         .HasColumnType("int");
+
+                    b.Property<string>("WindowsURI")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("WindowsVersion")
                         .HasColumnType("int");
@@ -86,6 +98,9 @@ namespace SarsMinimalApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AppID")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -95,7 +110,7 @@ namespace SarsMinimalApi.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Process")
+                    b.Property<string>("Method")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

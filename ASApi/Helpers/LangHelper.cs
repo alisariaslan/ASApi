@@ -30,7 +30,7 @@ public static class LangHelper
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "ConvertToResponse", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "ConvertToResponse", ex.Message);
 			return string.Empty;
 		}
 	}

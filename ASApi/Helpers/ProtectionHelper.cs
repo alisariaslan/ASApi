@@ -24,12 +24,12 @@ public class ProtectionHelper
 			process.Start();
 			string output = process.StandardOutput.ReadToEnd();
 			process.WaitForExit();
-			await DbHelper.SaveLog(myDbContext, "IsFirewallRuleExists", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{string.Empty}");
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "IsFirewallRuleExists", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{string.Empty}");
 			return output.Contains("Rule Name:");
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "IsFirewallRuleExists", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "IsFirewallRuleExists", ex.Message);
 			return false;
 		}
 
@@ -50,14 +50,14 @@ public class ProtectionHelper
 			process.Start();
 			string output = process.StandardOutput.ReadToEnd();
 			process.WaitForExit();
-			await DbHelper.SaveLog(myDbContext, "CreateFirewallRule", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{string.Empty}");
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "CreateFirewallRule", $"{process.StartInfo.FileName} {process.StartInfo.Arguments}\noutput:{output}\nerror:{string.Empty}");
 			if (output.Contains("Ok."))
 				return true;
 			return false;
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "CreateFirewallRule", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "CreateFirewallRule", ex.Message);
 			return false;
 		}
 	}
@@ -74,8 +74,6 @@ public class ProtectionHelper
 				maxRequestCount = 2;
 
 			var ip = await IpHelper.GetClientIp(myDbContext, request);
-			if (Program.Builder.Configuration["IPLogs"].Equals("Enabled"))
-				Console.WriteLine(DateTime.Now + ":IP:" + ip);
 
 			if (Program.Builder.Configuration["SpamChecks"].Equals("Disabled"))
 				return SpamLevel.Ok;
@@ -84,10 +82,14 @@ public class ProtectionHelper
 				return SpamLevel.IpError;
 
 			#region Save ip to DB
-			var name = "ip_" + ip.Replace("::", "localhost").Replace(':', '_').Replace("ffff", "").Replace('.', '-');
-			IpModel model = new IpModel() { Ip = ip, Endpoint = endpoint };
-			myDbContext.Requests.Add(model);
-			await myDbContext.SaveChangesAsync();
+
+			if (Program.Builder.Configuration["IPLogs"].Equals("Enabled"))
+			{
+				var name = "ip_" + ip.Replace("::", "localhost").Replace(':', '_').Replace("ffff", "").Replace('.', '-');
+				IpModel model = new IpModel() { Ip = ip, Endpoint = endpoint };
+				myDbContext.Requests.Add(model);
+				await myDbContext.SaveChangesAsync();
+			}
 			#endregion
 
 			#region Clear expired ips
@@ -113,7 +115,7 @@ public class ProtectionHelper
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "SpamCheckAsync", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "SpamCheckAsync", ex.Message);
 			return SpamLevel.Spam;
 		}
 	}

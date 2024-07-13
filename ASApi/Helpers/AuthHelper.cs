@@ -18,7 +18,7 @@ public static class AuthHelper
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "IsFullyAuthorized", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "IsFullyAuthorized", ex.Message);
 			return false;
 		}
 	}

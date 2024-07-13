@@ -79,7 +79,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x1", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x1", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		});
@@ -100,7 +100,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x2", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x2", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		});
@@ -169,7 +169,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x3", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x3", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		});
@@ -204,7 +204,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x4", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x4", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		});
@@ -238,18 +238,18 @@ class Program
 
 				if (string.IsNullOrEmpty(error))
 				{
-					await DbHelper.SaveLog(myDbContext, "[POST]/system/sendcommand", output);
+					await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "[POST]/system/sendcommand", output);
 					return Results.Ok(new ApiModel() { Message = output });
 				}
 				else
 				{
-					await DbHelper.SaveLog(myDbContext, "[POST]/system/sendcommand", error);
+					await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "[POST]/system/sendcommand", error);
 					return Results.Ok(new ApiModel() { Error = error });
 				}
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x5", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x5", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -275,7 +275,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x6", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x6", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -294,7 +294,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x7", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x7", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -316,7 +316,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x8", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x8", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -356,7 +356,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x9", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x9", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -381,7 +381,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x10", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x10", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -404,7 +404,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x11", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x11", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -423,7 +423,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x12", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x12", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -447,7 +447,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x13", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x13", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		});
@@ -482,7 +482,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x14", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x14", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -517,7 +517,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x15", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x15", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();
@@ -545,7 +545,7 @@ class Program
 			}
 			catch (Exception ex)
 			{
-				await DbHelper.SaveLog(myDbContext, "0x16", ex.Message);
+				await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "0x16", ex.Message);
 				return Results.Json(new ApiModel() { Error = await LangHelper.ConvertToResponse(myDbContext, request, 9, 0) });
 			}
 		}).RequireAuthorization();

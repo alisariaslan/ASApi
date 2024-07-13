@@ -6,12 +6,13 @@ namespace SarsMinimalApi.Helpers;
 
 public class DbHelper
 {
-	public static async Task<bool> SaveLog(MyDbContext myDbContext, string methodCode, string message)
+	public static async Task<bool> SaveLog(MyDbContext myDbContext,string appid, string methodCode, string message)
 	{
 		try
 		{
+			int.TryParse(appid, out int parsedAppid);
 			Console.WriteLine(DateTime.Now + ":Log:" + methodCode + ":" + message);
-			var log = new LogModel() { Method = methodCode, Message = message };
+			var log = new LogModel() {AppID = parsedAppid, Method = methodCode, Message = message };
 			myDbContext.Logs.Add(log);
 			await myDbContext.SaveChangesAsync();
 			var expiredlogs = myDbContext.Logs.Where(u => u.CreationDate <= DateTime.Now.AddDays(-7)).ToList();
@@ -36,7 +37,7 @@ public class DbHelper
 		}
 		catch (Exception ex)
 		{
-			await SaveLog(myDbContext, "GetUserFromToken", ex.Message);
+			await SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "GetUserFromToken", ex.Message);
 			return null;
 		}
 	}

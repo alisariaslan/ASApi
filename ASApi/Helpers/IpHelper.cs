@@ -20,7 +20,7 @@ public class IpHelper
 		}
 		catch (Exception ex)
 		{
-			await DbHelper.SaveLog(myDbContext, "GetClientIp", ex.Message);
+			await DbHelper.SaveLog(myDbContext, Program.Builder.Configuration["AppID"], "GetClientIp", ex.Message);
 			return string.Empty;
 		}
 	}
